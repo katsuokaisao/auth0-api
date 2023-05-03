@@ -57,6 +57,7 @@ func trap(server *http.Server) {
 	// SIGKILL: kill -9
 	signal.Notify(signals, syscall.SIGINT, syscall.SIGTERM)
 
+	// block until a signal is received
 	sigs := <-signals
 
 	log.Printf("Signal %s received. Shutting down...", sigs)
