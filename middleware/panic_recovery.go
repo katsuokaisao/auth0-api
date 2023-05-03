@@ -11,7 +11,6 @@ func PanicRecovery(next http.Handler) http.Handler {
 			defer func() {
 				if err := recover(); err != nil {
 					fmt.Println("panic occurred:", err)
-					res.Header().Set("Content-Type", "application/json")
 					res.WriteHeader(http.StatusInternalServerError)
 				}
 			}()

@@ -2,16 +2,18 @@ package handler
 
 import (
 	"net/http"
+
+	"github.com/labstack/echo"
 )
 
-func HandleHealth(res http.ResponseWriter, req *http.Request) {
-	res.Header().Set("Content-Type", "application/json")
-	res.WriteHeader(http.StatusOK)
-	res.Write([]byte("OK"))
+func HandleHealth(c echo.Context) error {
+	return c.JSON(http.StatusOK, "OK")
 }
 
-func HandlePrivate(res http.ResponseWriter, req *http.Request) {
-	res.Header().Set("Content-Type", "application/json")
-	res.WriteHeader(http.StatusOK)
-	res.Write([]byte("Private"))
+func HandlePrivate(c echo.Context) error {
+	return c.JSON(http.StatusOK, "Private")
+}
+
+func HandlePrivateScoped(c echo.Context) error {
+	return c.JSON(http.StatusOK, "Private Scoped")
 }
