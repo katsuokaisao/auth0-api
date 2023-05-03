@@ -3,6 +3,10 @@ package authorize
 import (
 	"context"
 	"strings"
+
+	jwtmiddleware "github.com/auth0/go-jwt-middleware/v2"
+	"github.com/auth0/go-jwt-middleware/v2/validator"
+	"github.com/labstack/echo"
 )
 
 // CustomClaims contains custom data we want from the token.
@@ -26,4 +30,11 @@ func (c CustomClaims) HasScope(expectedScope string) bool {
 	}
 
 	return false
+}
+
+func parseClaims(ctx echo.Context) *CustomClaims {
+	token := ctx.Request().Context().Value(jwtmiddleware.ContextKey{}).(*validator.ValidatedClaims)
+	claims := token.CustomClaims.(*CustomClaims)
+
+	return claims
 }
